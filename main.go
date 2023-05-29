@@ -4,11 +4,40 @@ import "os"
 import "fmt"
 import "bufio"
 import "strings"
+import "strconv"
 
 var reader *bufio.Reader
 
+type User struct {
+	id int
+	username string
+	email string
+	age int
+}
+
+var id int
+var users map[int]User
+
 func crearUsuario() {
-	fmt.Println("crear usuario")
+	fmt.Println("Ingresa nombre de usuario: ")
+	username := readLine()
+
+	fmt.Println("Ingresa email: ")
+	email := readLine()
+
+	fmt.Println("Ingresa edad: ")
+	age, err := strconv.Atoi(readLine())
+
+	if err != nil {
+		panic("No es posible convertir de un string a un entero")
+	}
+
+	id++
+	user := User { id, username, email, age}
+	users[id] = user
+
+	fmt.Println(users)
+	fmt.Println("Usuario creado exitosamente!")
 }
 
 func listarUsuarios() {
@@ -35,6 +64,7 @@ func readLine() string {
 func main() {
 
 	var option string
+	users = make(map[int]User)
 
 	reader = bufio.NewReader(os.Stdin)
 
