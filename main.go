@@ -49,6 +49,8 @@ func listarUsuarios() {
 
 	limpiarConsola()
 
+	fmt.Println(">>> Usuarios actualmente activos!\n")
+
 	for id, user := range users {
 		fmt.Println(id, "-", user.username)
 	} 
@@ -61,7 +63,21 @@ func actualizarUsuario() {
 }
 
 func eliminarUsuario() {
-	fmt.Println("eliminar usuario")
+
+	limpiarConsola()
+
+	fmt.Println("Ingresa el id del usuario a eliminar")
+	id, err := strconv.Atoi(readLine())
+
+	if err != nil {
+		panic("No es posible convertir de un string a un entero")
+	}
+
+	if _, ok := users[id]; ok {
+		delete(users, id)
+	}
+
+	fmt.Println(">>> Usuario eliminado exitosamente!\n")
 }
 
 func limpiarConsola() {
